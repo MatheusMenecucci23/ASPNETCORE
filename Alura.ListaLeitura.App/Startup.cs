@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,15 +13,34 @@ namespace Alura.ListaLeitura.App
    
     public class Startup
     {
+        //ímplementando um método para usarmos o serviço de roteamento do asp.net core
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRouting();
+        }
+
+
         //essa classe está configurando um Request Pipeline
         public void Configure(IApplicationBuilder app)
         {
+            //construindo rotas com RouteBuilder
+            var builder = new RouteBuilder(app);
+
+            //{"caminho/rota", referência do método que será chamado}
+            builder.MapRoute("Livros/ParaLer", LivrosParaLer);
+            builder.MapRoute("Livros/Lendo", LivrosLendo);
+            builder.MapRoute("Livros/Lidos", LivrosLidos);
+
+            var rotas = builder.Build();
+
+            app.UseRouter(rotas);
+
             //faz a requisição
             //executando as requisições
             app.Run(Roteamento);
         }
 
-        //Rotas
+        //Rotas sem o ASP.NET CORE
         public Task Roteamento(HttpContext context)
         {
             //pegando uma gama de livros no LivroRepositorioCSV
@@ -29,10 +50,10 @@ namespace Alura.ListaLeitura.App
             var caminhosAtendidos = new Dictionary<string, RequestDelegate>
             {
                 //{"caminho/rota", referência do método que será chamado}
-                {"/Livros/ParaLer", LivrosParaLer },
-                {"/Livros/Lendo", LivrosLendo },
-                { "/Livros/Lidos", LivrosLidos }
-                
+                //{"/Livros/ParaLer", LivrosParaLer },
+                //{ "/Livros/Lendo", LivrosLendo},
+                //{"/Livros/Lidos", LivrosLidos }
+
             };
 
             //verificando se o caminho requerido faz parte do nosso dicionário de rotas
