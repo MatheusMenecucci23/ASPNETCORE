@@ -1,6 +1,7 @@
 ﻿using Alura.ListaLeitura.App.Negocio;
 using Alura.ListaLeitura.App.Repositorio;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 namespace Alura.ListaLeitura.App
 {
     //essa classe se faz necessária para criar um host
-
+   
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
@@ -73,7 +74,7 @@ namespace Alura.ListaLeitura.App
             using (var arquivo = File.OpenText(nomeCompletoArquivo))
             {
                 return arquivo.ReadToEnd();
-            }
+        }
         }
 
         private Task ExibeDetalhes(HttpContext context)
@@ -136,6 +137,7 @@ namespace Alura.ListaLeitura.App
         //criando os métodos que serão referenciado pelas rotas
         public Task LivrosParaLer(HttpContext context)
         {
+            
             //pegando uma gama de livros no LivroRepositorioCSV
             var _repo = new LivroRepositorioCSV();
             var conteudoArquivo = CarregaArquivoHTML("para-ler");
@@ -182,7 +184,7 @@ namespace Alura.ListaLeitura.App
             }
 
             conteudoArquivo = conteudoArquivo.Replace("#NOVO-ITEM#", "");
-            
+
             //respondendo a requisição
             //imprimindo na web o repositorio de livros
             return context.Response.WriteAsync(conteudoArquivo);
