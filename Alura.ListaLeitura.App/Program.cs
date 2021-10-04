@@ -21,9 +21,6 @@ namespace Alura.ListaLeitura.App
             //Rodando os servidor
             host.Run();
 
-            //ImprimeLista(_repo.ParaLer);
-            //ImprimeLista(_repo.Lendo);
-            //ImprimeLista(_repo.Lidos);
         }
 
         static void ImprimeLista(ListaDeLeitura lista)
