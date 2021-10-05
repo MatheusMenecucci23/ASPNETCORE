@@ -8,6 +8,7 @@
 <body>
     <ul>
         <!-- o arroba quer diz para o compilador que isso que é um código C#-->
+        <!--Exibindo os livros ParaLer-->
         @foreach (var livro in ViewBag.Livros)
         {
             <li>@livro.Titulo - @livro.Autor</li>
