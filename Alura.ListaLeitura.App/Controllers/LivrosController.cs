@@ -39,8 +39,8 @@ namespace Alura.ListaLeitura.App.Logica
             ViewBag.Livros = _repo.ParaLer.Livros;
 
             //respondendo a requisição
-            //imprimindo na web o repositorio de livros
-            return View("Lista");
+
+            return View("lista");
 
         }
 
@@ -67,7 +67,7 @@ namespace Alura.ListaLeitura.App.Logica
             //pegando uma gama de livros no LivroRepositorioCSV
             var _repo = new LivroRepositorioCSV();
 
-          ViewBag.Livros = _repo.Lidos.Livros;
+            ViewBag.Livros = _repo.Lidos.Livros;
 
             //respondendo a requisição
             //imprimindo na web o repositorio de livros
